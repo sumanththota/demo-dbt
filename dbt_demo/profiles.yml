@@ -12,9 +12,9 @@ dbt_demo:
       database: __SNOWFLAKE_DATABASE__
       password: __SNOWFLAKE_PASSWORD__
       role: __SNOWFLAKE_ROLE__
-      schema: __SNOWFLAKE_SCHEMA__
+      schema: PUBLIC
       threads: 10
       type: snowflake
-      user: __SNOWFLAKE_USERNAME__
+      user: __SNOWFLAKE_USER__
       warehouse: __SNOWFLAKE_WAREHOUSE__
   target: dev
