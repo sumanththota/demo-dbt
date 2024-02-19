@@ -1,0 +1,20 @@
+## The connection profile manifest that dbt uses to connect to the data warehouse.
+## This file is used by the CICD pipeline. The CI first substitutes values for the variables
+## in this file, then stores the file at /Users/<service_username>/.dbt/profiles.yml
+##
+## Note: you can create multiple profiles within this file (e.g. one for dev and one for prod).
+##
+## See dbt docs on Connection profiles: https://docs.getdbt.com/docs/core/connect-data-platform/connection-profiles
+dbt_demo:
+  outputs:
+    dev:
+      account: __SNOWFLAKE_ACCOUNT__
+      database: __SNOWFLAKE_DATABASE__
+      password: __SNOWFLAKE_PASSWORD__
+      role: __SNOWFLAKE_ROLE__
+      schema: __SNOWFLAKE_SCHEMA__
+      threads: 10
+      type: snowflake
+      user: __SNOWFLAKE_USERNAME__
+      warehouse: __SNOWFLAKE_WAREHOUSE__
+  target: dev
