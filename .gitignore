@@ -1,0 +1,8 @@
+## OS Files and Virtual Environment
+
+.venv/
+
+## dbt
+
+.dbt/**/*
+logs/**/*
