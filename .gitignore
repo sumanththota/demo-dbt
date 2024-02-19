@@ -3,6 +3,10 @@
 .venv/
 
 ## dbt
-
 .dbt/**/*
 logs/**/*
+target/**/*
+dbt_packages/**/*
+
+profiles.yml
+.user.yml

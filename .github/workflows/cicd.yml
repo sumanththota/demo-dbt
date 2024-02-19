@@ -1,6 +1,9 @@
 name: cicd
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   elt:
@@ -24,7 +27,7 @@ jobs:
       
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       
-      - name: Check out repository code
+      - name: Checkout repository code
         uses: actions/checkout@v4
       
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
@@ -32,16 +35,16 @@ jobs:
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       
       - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
+        run: ls ${{ github.workspace }}
       
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
-      - run: sh var_substitution.sh
-        working-directory: ${{ env.DBT_PROJECT_NAME }}
+      - run: sh variable_substitution.sh
 
       - run: sh setup.sh
-        working-directory: ${{ env.DBT_PROJECT_NAME }}
 
-      - run: sh run.sh
-        working-directory: ${{ env.DBT_PROJECT_NAME }}
+      - run: dbt compile
+
+      - run: dbt test
+
+      - run: dbt run
