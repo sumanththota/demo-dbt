@@ -5,9 +5,11 @@ Welcome to your new dbt project!
 ## Using the starter project
 
 Try running the following commands:
-- `bash build.sh`
-- `bash test.sh`
-- `bash run.sh`
+- `dbt compile`
+- `dbt test`
+- `dbt run`
+- `dbt docs generate`
+- `dbt docs serve`
 
 
 ## Resources

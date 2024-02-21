@@ -18,8 +18,10 @@ test-paths: ["tests"]
 seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
+target-path: "target"
 
-clean-targets:         # directories to be removed by `dbt clean`
+# Specifies the directories to be removed by `dbt clean`
+clean-targets:      
   - "target"
   - "dbt_packages"
 

@@ -1,0 +1,22 @@
+## The connection profile manifest that dbt uses to connect to the data warehouse.
+## This file is used by the CICD pipeline. The CI first substitutes values for the variables
+## in this file, then stores the file at /Users/<service_username>/.dbt/profiles.yml
+##
+## Note: you can create multiple profiles within this file (e.g. one for dev and one for prod).
+##
+## See dbt docs on Connection profiles: https://docs.getdbt.com/docs/core/connect-data-platform/connection-profiles
+dbt_demo:
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account-json
+      project: __GCP_PROJECT_ID__
+      
+      # You can also use "schema" field here
+      dataset: __DBT_DATASET_NAME__
+      
+      threads: 4 # Must be a value of 1 or greater
+      
+      OPTIONAL_CONFIG: VALUE
+
+      keyfile: __GCP_SVC_ACC_KEY_PATH__

@@ -14,6 +14,11 @@ if [[ -z "${DBT_PROFILES_DIR}" ]]; then
   exit 1
 fi
 
+if [[ -z "${DBT_WAREHOUSE_PROVIDER}" ]]; then
+  echo "Environment variable DBT_WAREHOUSE_PROVIDER is not set"
+  exit 1
+fi
+
 ##
 ## Install system dependencies
 ##
@@ -38,8 +43,41 @@ source .venv/bin/activate
 
 ## Install dbt packages
 
-# Install the dbt-<warehouse_provider> library using pip
-pip install dbt-snowflake
+if [ "$DBT_WAREHOUSE_PROVIDER" = "snowflake" ]; then
+  pip install dbt-snowflake
+elif [ "$DBT_WAREHOUSE_PROVIDER" = "bigquery" ]; then
+  pip install dbt-bigquery
+fi
+
+##
+## Perform environment variable substitution
+## 
+
+if [ "$DBT_WAREHOUSE_PROVIDER" = "snowflake" ]; then
+  cp dbt_profiles.snowflake.yml profiles.yml
+
+  sed -i "s/__SNOWFLAKE_ACCOUNT__/${SNOWFLAKE_ACCOUNT}/g" profiles.yml
+  sed -i "s/__SNOWFLAKE_DATABASE__/${SNOWFLAKE_DATABASE}/g" profiles.yml
+  sed -i "s/__SNOWFLAKE_PASSWORD__/${SNOWFLAKE_PASSWORD}/g" profiles.yml
+  sed -i "s/__SNOWFLAKE_ROLE__/${SNOWFLAKE_ROLE}/g" profiles.yml
+  sed -i "s/__SNOWFLAKE_USER__/${SNOWFLAKE_USER}/g" profiles.yml
+  sed -i "s/__SNOWFLAKE_WAREHOUSE__/${SNOWFLAKE_WAREHOUSE}/g" profiles.yml
+
+elif [ "$DBT_WAREHOUSE_PROVIDER" = "bigquery" ]; then
+  cp dbt_profiles.bigquery.yml profiles.yml
+
+  # TODO:
+  # sed -i "s/__SNOWFLAKE_ACCOUNT__/${SNOWFLAKE_ACCOUNT}/g" profiles.yml
+  # sed -i "s/__SNOWFLAKE_DATABASE__/${SNOWFLAKE_DATABASE}/g" profiles.yml
+  # sed -i "s/__SNOWFLAKE_PASSWORD__/${SNOWFLAKE_PASSWORD}/g" profiles.yml
+  # sed -i "s/__SNOWFLAKE_ROLE__/${SNOWFLAKE_ROLE}/g" profiles.yml
+  # sed -i "s/__SNOWFLAKE_USER__/${SNOWFLAKE_USER}/g" profiles.yml
+  # sed -i "s/__SNOWFLAKE_WAREHOUSE__/${SNOWFLAKE_WAREHOUSE}/g" profiles.yml
+fi
+
+
+
+
 
 # Confirm that the dbt installation was successful.
 dbt --version

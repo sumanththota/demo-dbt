@@ -6,7 +6,34 @@ on:
       - main
 
 jobs:
-  elt:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    env:
+      DBT_PROJECT_NAME: dbt_demo
+      DBT_PROFILES_DIR: '.'
+      DBT_WAREHOUSE_PROVIDER: 'snowflake'
+      SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+      SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
+      SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+      SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+      SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+      SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+    steps:      
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+      
+      - run: sh variable_substitution.sh
+
+      - run: sh setup.sh
+
+      - run: dbt compile
+
+      - run: dbt docs generate
+
+  scan:
     runs-on: ubuntu-latest
     permissions:
       contents: 'read'
@@ -21,53 +48,81 @@ jobs:
       SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
       SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
     steps:
-      - run: echo "${{ github.actor }} is testing out GitHub Actions 🚀."
-
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      
       - name: Checkout repository code
         uses: actions/checkout@v4
-      
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      
-      - name: List files in the repository
-        run: ls ${{ github.workspace }}
-      
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+  
+      - run: echo "Scan"
+
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    env:
+      DBT_PROJECT_NAME: dbt_demo
+      DBT_PROFILES_DIR: '.'
+      SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+      SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
+      SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+      SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+      SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+      SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
 
       - run: sh variable_substitution.sh
 
       - run: sh setup.sh
 
-      # - run: dbt compile
+      - run: dbt test
 
-      # - run: dbt test
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    env:
+      DBT_PROJECT_NAME: dbt_demo
+      DBT_PROFILES_DIR: '.'
+      SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+      SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
+      SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+      SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+      SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+      SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+    steps:
+      - run: echo "Deploy"
+
+  run:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    env:
+      DBT_PROJECT_NAME: dbt_demo
+      DBT_PROFILES_DIR: '.'
+      SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+      SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
+      SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+      SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+      SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+      SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      - run: sh variable_substitution.sh
+
+      - run: sh setup.sh
 
       - run: dbt run
 
-      - run: dbt docs generate
-
-      - id: 'auth-gcp'
-        uses: 'google-github-actions/auth@v2'
-        with:
-          credentials_json: ${{ secrets.GCP_CLOUD_STORAGE_SVC_ACC_KEY_BASE64 }}
-        
-      - name: Upload docs to GCP Cloud Storage bucket
-        id: 'upload-docs'
-        uses: 'google-github-actions/upload-cloud-storage@v2'
-        with:
-          path: 'target'
-          destination: ${{ secrets.DBT_DOCS_BUCKET_NAME }}
-          gzip: true
-          resumable: true
-          process_gcloudignore: true
 
 
 
     
+
+
+
+  
