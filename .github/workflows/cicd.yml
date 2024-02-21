@@ -8,6 +8,9 @@ on:
 jobs:
   elt:
     runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
     env:
       DBT_PROJECT_NAME: dbt_demo
       DBT_PROFILES_DIR: '.'
@@ -17,7 +20,6 @@ jobs:
       SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
       SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
       SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
-      
     steps:
       - run: echo "${{ github.actor }} is testing out GitHub Actions 🚀."
 
@@ -43,8 +45,29 @@ jobs:
 
       - run: sh setup.sh
 
-      - run: dbt compile
+      # - run: dbt compile
 
-      - run: dbt test
+      # - run: dbt test
 
       - run: dbt run
+
+      - run: dbt docs generate
+
+      - id: 'auth-gcp'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: ${{ secrets.GCP_CLOUD_STORAGE_SVC_ACC_KEY_BASE64 }}
+        
+      - name: Upload docs to GCP Cloud Storage bucket
+        id: 'upload-docs'
+        uses: 'google-github-actions/upload-cloud-storage@v2'
+        with:
+          path: 'target'
+          destination: ${{ secrets.DBT_DOCS_BUCKET_NAME }}
+          gzip: true
+          resumable: true
+          process_gcloudignore: true
+
+
+
+    
