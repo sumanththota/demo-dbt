@@ -1,5 +1,4 @@
-## OS Files and Virtual Environment
-
+## OS and Virtual Environment
 .venv/
 
 ## dbt
@@ -11,4 +10,8 @@ dbt_packages/**/*
 profiles.yml
 .user.yml
 
+## Sensitive data
 *.credentials.*
+
+## Misc.
+.DS_Store

@@ -1,6 +1,6 @@
 
 ##
-## Setup and validate runner configuration
+## Setup runner configuration
 ##
 
 if [[ -z "${DBT_PROJECT_NAME}" ]]; then
@@ -41,7 +41,7 @@ source .venv/bin/activate
 ## Install project dependencies
 ##
 
-## Install dbt packages
+## Install dbt adapter package
 
 if [ "$DBT_WAREHOUSE_PROVIDER" = "snowflake" ]; then
   pip install dbt-snowflake
@@ -50,7 +50,7 @@ elif [ "$DBT_WAREHOUSE_PROVIDER" = "bigquery" ]; then
 fi
 
 ##
-## Perform environment variable substitution
+## Perform Environment-Specific variable subtitutions
 ## 
 
 if [ "$DBT_WAREHOUSE_PROVIDER" = "snowflake" ]; then
@@ -75,14 +75,10 @@ elif [ "$DBT_WAREHOUSE_PROVIDER" = "bigquery" ]; then
   # sed -i "s/__SNOWFLAKE_WAREHOUSE__/${SNOWFLAKE_WAREHOUSE}/g" profiles.yml
 fi
 
-
-
-
-
 # Confirm that the dbt installation was successful.
 dbt --version
 
-dbt init $DBT_PROJECT_NAME
+# dbt init $DBT_PROJECT_NAME
 
 ##
 ## Setup dbt connection profile to data warehouse
