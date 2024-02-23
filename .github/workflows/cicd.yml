@@ -13,7 +13,6 @@ jobs:
       id-token: 'write'
     env:
       DBT_PROJECT_NAME: dbt_demo
-      DBT_PROFILES_DIR: '.'
       DBT_WAREHOUSE_PROVIDER: 'snowflake'
       SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
       SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
@@ -25,8 +24,6 @@ jobs:
       - name: Checkout repository code
         uses: actions/checkout@v4
       
-      - run: sh variable_substitution.sh
-
       - run: sh setup.sh
 
       - run: dbt compile
@@ -40,7 +37,7 @@ jobs:
       id-token: 'write'
     env:
       DBT_PROJECT_NAME: dbt_demo
-      DBT_PROFILES_DIR: '.'
+      DBT_WAREHOUSE_PROVIDER: 'snowflake'
       SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
       SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
       SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
@@ -51,7 +48,10 @@ jobs:
       - name: Checkout repository code
         uses: actions/checkout@v4
   
-      - run: echo "Scan"
+      - name: Run CodeQL Analysis
+        uses: github/codeql-action/init@v3
+        with:
+          languages: python, javascript-typescript
 
   test:
     runs-on: ubuntu-latest
@@ -60,7 +60,7 @@ jobs:
       id-token: 'write'
     env:
       DBT_PROJECT_NAME: dbt_demo
-      DBT_PROFILES_DIR: '.'
+      DBT_WAREHOUSE_PROVIDER: 'snowflake'
       SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
       SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
       SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
@@ -70,8 +70,6 @@ jobs:
     steps:
       - name: Checkout repository code
         uses: actions/checkout@v4
-
-      - run: sh variable_substitution.sh
 
       - run: sh setup.sh
 
@@ -84,7 +82,7 @@ jobs:
       id-token: 'write'
     env:
       DBT_PROJECT_NAME: dbt_demo
-      DBT_PROFILES_DIR: '.'
+      DBT_WAREHOUSE_PROVIDER: 'snowflake'
       SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
       SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
       SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
@@ -101,7 +99,7 @@ jobs:
       id-token: 'write'
     env:
       DBT_PROJECT_NAME: dbt_demo
-      DBT_PROFILES_DIR: '.'
+      DBT_WAREHOUSE_PROVIDER: 'snowflake'
       SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
       SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
       SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
@@ -112,17 +110,6 @@ jobs:
       - name: Checkout repository code
         uses: actions/checkout@v4
 
-      - run: sh variable_substitution.sh
-
       - run: sh setup.sh
 
       - run: dbt run
-
-
-
-
-    
-
-
-
-  
