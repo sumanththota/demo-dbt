@@ -7,6 +7,8 @@ pipeline as a SQL workflow using:
 - Github Actions as pipeline runner, scheduler, and orchestrator.
 - Python virtual environment.
 - Snowflake or BigQuery as data warehouse
+- [sqlfluff](https://sqlfluff.com/) for linting SQL files
+- [sqlfmt](https://sqlfmt.com/) for formatting SQL files
 
 ## Getting started
 

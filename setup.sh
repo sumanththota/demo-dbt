@@ -72,6 +72,8 @@ fi
 # Confirm that the dbt installation was successful.
 dbt --version
 
+python -m pip install -r requirements.txt
+
 # dbt init $DBT_PROJECT_NAME
 
 ##

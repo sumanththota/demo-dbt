@@ -27,7 +27,7 @@ dbt allows us to configure:
 
 `tags` to support easy categorization and graph selection
 custom schemas to split your models across multiple schemas
-aliases if your view/table name should differ from the filename
+aliases if your view/table name should differ FROM the filename
 Snippets of SQL to run at the start or end of a model, known as hooks
 Warehouse-specific configurations for performance (e.g. sort and dist keys on Redshift, partitions on BigQuery)
 
@@ -71,13 +71,13 @@ TODO: See https://docs.getdbt.com/docs/deploy/deployments#monitor-jobs-and-alert
 - See dbt docs [Snowflake setup](https://docs.getdbt.com/docs/core/connect-data-platform/snowflake-setup#account)
 - See Snowflake's [BEST PRACTICES FOR OPTIMIZING YOUR DBT AND SNOWFLAKE DEPLOYMENT](https://www.snowflake.com/wp-content/uploads/2021/10/Best-Practices-for-Optimizing-Your-dbt-and-Snowflake-Deployment.pdf)
 - See post [Snowflake Queries: How Much Is Each One Costing You?](https://blog.sundeck.io/snowflake-queries-how-much-is-each-one-costing-you-83f40a61dd90)
-- See Select post [Calculating cost per query in Snowflake](https://select.dev/posts/cost-per-query#complete-sql-query)
+- See Select post [Calculating cost per query in Snowflake](https://SELECT.dev/posts/cost-per-query#complete-sql-query)
 
 ### Cost Monitoring tools
 
 - See Snowflake docs on [Understanding overall cost](https://docs.snowflake.com/en/user-guide/cost-understanding-overall)
-- See [Select](https://select.dev/docs/dbt-snowflake-monitoring)
-    - [dbt-snowflake-monitoring](https://github.com/get-select/dbt-snowflake-monitoring)
+- See [Select](https://SELECT.dev/docs/dbt-snowflake-monitoring)
+    - [dbt-snowflake-monitoring](https://github.com/get-SELECT/dbt-snowflake-monitoring)
 
 ## Notes for BigQuery
 
