@@ -6,15 +6,15 @@
 ##
 ## See dbt docs on Connection profiles: https://docs.getdbt.com/docs/core/connect-data-platform/connection-profiles
 dbt_demo:
+  target: dev
   outputs:
     dev:
-      account: __SNOWFLAKE_ACCOUNT__
-      database: __SNOWFLAKE_DATABASE__
-      password: __SNOWFLAKE_PASSWORD__
-      role: __SNOWFLAKE_ROLE__
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      database: "{{ env_var('SNOWFLAKE_DATABASE') }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      role: "{{ env_var('SNOWFLAKE_ROLE') }}"
       schema: PUBLIC
       threads: 10
       type: snowflake
-      user: __SNOWFLAKE_USER__
-      warehouse: __SNOWFLAKE_WAREHOUSE__
-  target: dev
+      user: "{{ env_var('SNOWFLAKE_USER') }}"
+      warehouse: "{{ env_var('SNOWFLAKE_WAREHOUSE') }}"

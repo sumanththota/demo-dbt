@@ -1,5 +1,18 @@
 ---
 version: 2
+
+##
+## DAG Sources
+## See dbt docs: https://docs.getdbt.com/docs/build/sources
+##
+sources:
+  - name: jaffle_shop
+    database: raw  
+    schema: jaffle_shop  
+    tables:
+      - name: orders
+      - name: customers
+
 models:
   - name: my_first_dbt_model
     description: A starter dbt model
@@ -13,3 +26,33 @@ models:
       - name: id
         description: The primary key for this table
         tests: [unique, not_null]
+
+##
+## Exposures define downstream uses of the dbt project,
+## See dbt docs: https://docs.getdbt.com/docs/build/exposures
+##
+exposures:
+  - name: weekly_jaffle_metrics
+    label: Weekly Jaffle Metrics
+    type: dashboard
+    
+    # Indicates the level of confidence (stability) in the exposure.
+    # Options:
+    # - high (i.e. for a well-established dashboard, widely used and trusted within your organizatio)
+    # - medium
+    # - low (i.e. for a new or experimental analysis)
+    maturity: high
+
+    url: https://bi.tool/dashboards/1
+
+    description: >
+      Did someone say "exponential growth"?
+  
+    depends_on:
+      - ref('my_first_dbt_model')
+      - source('jaffle_shop', 'orders')
+      # - metric('count_orders')
+
+    owner:
+      name: Jo Lares
+      email: jolares@jaffleshop.com

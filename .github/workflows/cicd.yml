@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+  schedule:
+    - cron: '0 0 * * *'
 
 jobs:
   build:
@@ -93,6 +95,32 @@ jobs:
       - run: echo "Deploy"
 
   run:
+    name: Run ELT
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    env:
+      DBT_PROJECT_NAME: dbt_demo
+      DBT_WAREHOUSE_PROVIDER: 'snowflake'
+      SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+      SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
+      SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+      SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+      SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+      SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      - run: sh setup.sh
+
+      - run: dbt run
+
+
+  scheduled-run:
+    name: Run ELT (scheduled)
+    if: ${{ github.ref_name == 'main' }}
     runs-on: ubuntu-latest
     permissions:
       contents: 'read'

@@ -3,17 +3,17 @@
 A project template for building, testing, scheduling, and running an ELT data
 pipeline as a SQL workflow using:
 
-- dbt-core
-- Github Actions as pipeline runner, scheduler, and orchestrator.
-- Python virtual environment.
-- Snowflake or BigQuery as data warehouse
-- [sqlfluff](https://sqlfluff.com/) for linting SQL files
-- [sqlfmt](https://sqlfmt.com/) for formatting SQL files
+- [dbt-core](https://github.com/dbt-labs/dbt-core)
+- [Github Actions](https://docs.github.com/en/actions) used as runner, scheduler, and orchestrator.
+- [Python virtual environment](https://docs.python.org/3/library/venv.html).
+- [Snowflake](https://docs.snowflake.com/) as a data warehouse option.
+- [BigQuery](https://cloud.google.com/bigquery/docs) as a data warehouse option.
+- [sqlfluff](https://sqlfluff.com/) used for linting SQL files
+- [sqlfmt](https://sqlfmt.com/) used for formatting SQL files
 
 ## Getting started
 
-Run `bash setup.sh` once to install project dependencies and configure the
-desired data warehouse and agent connection.
+Run `bash setup.sh` once to install project dependencies and configure the desired data warehouse and agent connection.
 
 Run the following target commands to execute the desired SQL workflow operation:
 - `dbt compile`
@@ -28,8 +28,11 @@ Run the following target commands to execute the desired SQL workflow operation:
 
 The `main` branch is read-only.
 
+`git checkout -b <feature-name>`
 
-`git checkout -b <branch-name>`
+Raise a PR
+
+Merge PR to main branch
 
 
 ## Code Style Guide
