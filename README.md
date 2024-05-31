@@ -11,6 +11,7 @@ pipeline as a SQL workflow using:
 
 
 ## Getting started
+- [Install DBT ](https://docs.getdbt.com/docs/core/installation-overview)
 
 Run `bash setup.sh` once to install project dependencies and configure the desired data warehouse and agent connection.
 
