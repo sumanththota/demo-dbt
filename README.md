@@ -10,6 +10,8 @@ pipeline as a SQL workflow using:
 - [BigQuery](https://cloud.google.com/bigquery/docs) as a data warehouse option.
 - [sqlfluff](https://sqlfluff.com/) used for linting SQL files
 - [sqlfmt](https://sqlfmt.com/) used for formatting SQL files
+- ![image](https://github.com/sumanththota/demo-dbt/assets/30614314/b7a16ac1-ff59-40f7-9bd1-c297b31fea56)
+
 
 ## Getting started
 
