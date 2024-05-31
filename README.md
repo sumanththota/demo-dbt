@@ -4,11 +4,9 @@ A project template for building, testing, scheduling, and running an ELT data
 pipeline as a SQL workflow using:
 
 - [dbt-core](https://github.com/dbt-labs/dbt-core)
-- [Github Actions](https://docs.github.com/en/actions) used as runner, scheduler, and orchestrator.
+- [Apache Airflow]([https://docs.github.com/en/actions](https://airflow.apache.org/docs/)) used as runner, scheduler, and orchestrator.
 - [Python virtual environment](https://docs.python.org/3/library/venv.html).
-- [Snowflake](https://docs.snowflake.com/) as a data warehouse option.
-- [BigQuery](https://cloud.google.com/bigquery/docs) as a data warehouse option.
-- [sqlfluff](https://sqlfluff.com/) used for linting SQL files
+- [RedShift]([https://cloud.google.com/bigquery/docs](https://docs.aws.amazon.com/redshift/)) as a data warehouse option.
 - [sqlfmt](https://sqlfmt.com/) used for formatting SQL files
 - ![image](https://github.com/sumanththota/demo-dbt/assets/30614314/b7a16ac1-ff59-40f7-9bd1-c297b31fea56)
 
