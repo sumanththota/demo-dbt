@@ -21,19 +21,6 @@ Run the following target commands to execute the desired SQL workflow operation:
 - `dbt docs generate`
 - `dbt docs serve`
 
-## Contributing
-
-`git checkout main`
-
-The `main` branch is read-only.
-
-`git checkout -b <feature-name>`
-
-Raise a PR
-
-Merge PR to main branch
-
-
 ## Code Style Guide
 
 - Follow Mozilla Data Documentation's (SQL Style Guide)[https://docs.telemetry.mozilla.org/concepts/sql_style#sql-style-guide] 
