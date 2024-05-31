@@ -1,6 +1,6 @@
-# dbt_demo
+# dbt_Airflow_RedShift_demo
 
-A project template for building, testing, scheduling, and running an ELT data
+A project for building, testing, scheduling, and running an ELT data
 pipeline as a SQL workflow using:
 
 - [dbt-core](https://github.com/dbt-labs/dbt-core)
