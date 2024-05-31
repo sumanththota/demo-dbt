@@ -1,4 +1,4 @@
-# dbt_Airflow_RedShift_demo
+# dbt_airflow_redShift_demo
 
 A project for building, testing, scheduling, and running an ELT data
 pipeline as a SQL workflow using:
